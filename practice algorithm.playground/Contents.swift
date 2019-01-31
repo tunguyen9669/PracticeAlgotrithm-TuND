@@ -67,26 +67,45 @@ func makeArrayConsecutive2(statues: [Int]) -> Int {
 
 makeArrayConsecutive2(statues: [6, 2, 3, 8])
 
-// lession 7: (chua xong)
+// lession 7:
 func almostIncreasingSequence(sequence: [Int]) -> Bool {
-    let arr = sequence.sorted()
-    var count = 0
-    for i in 0..<arr.count {
-        for j in i+1..<arr.count {
-            if arr[i] == arr[j] {
-                count += 1
-            }
-        }
-    }
-    if count == 1 {
+    
+    if sequence.count <= 1 {
         return false
     } else {
-        return true
+        if checkStrictlySequence(arr: sequence) == true {
+            return true
+        }
+    }
+    var arr = sequence
+    var index: [Int] = []
+    for i in 0..<arr.count - 1 {
+        
+        if arr[i+1] <= arr[i] {
+            index += [i, i+1]
+        }
+    }
+    for i in 0..<index.count {
+        var arr = sequence
+        arr.remove(at: index[i])
+        if checkStrictlySequence(arr: arr) == true {
+            return true
+        }
     }
     
+    return false
 }
 
-almostIncreasingSequence(sequence: [40, 50, 60, 10, 20, 30])
+func checkStrictlySequence(arr: [Int]) -> Bool {
+    for i in 0..<(arr.count-1) {
+        if arr[i] >= arr[i+1] {
+            return false
+        }
+    }
+    return true
+}
+
+almostIncreasingSequence(sequence: [3, 5, 67, 98, 3])
 
 // lession 8:
 func matrixElementsSum(matrix: [[Int]]) -> Int {
