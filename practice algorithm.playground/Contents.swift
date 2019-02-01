@@ -217,7 +217,16 @@ func sortByHeight(a: [Int]) -> [Int] {
 }
 sortByHeight(a: [-1, 150, 190, 170, -1, -1, 160, 180])
 
-// lession 13:
+// lession 13: chua nghi ra
+
+func reverseInParentheses(inputString: String) -> String {
+    var arr = Array(inputString)
+    
+    
+    
+    return String(arr)
+}
+
 
 
 // lession 14:
@@ -358,4 +367,122 @@ func isIPv4Address(inputString: String) -> Bool {
 }
 isIPv4Address(inputString: "172.316.254.1")
 
+// lession 22:
+func avoidObstacles(inputArray: [Int]) -> Int {
+    var max = 0
+    var flag = false
+    var index = [Int]()
+    var step = 1
+    for i in 0..<inputArray.count {
+        if inputArray[i] >= max {
+            max = inputArray[i]
+        }
+    }
+    for i in 0...max {
+        step += 1
+        if check(num: step, arr: inputArray) == true {
+            break
+        }
+    }
+    return step
+    
+}
+func check(num: Int, arr: [Int]) -> Bool {
+    for i in 0..<arr.count {
+        if arr[i] % num == 0 {
+            return false
+        }
+    }
+    return true
+}
+avoidObstacles(inputArray: [1000, 999])
 
+
+
+// lession 25:
+
+func arrayReplace(inputArray: [Int], elemToReplace: Int, substitutionElem: Int) -> [Int] {
+    var arr = inputArray
+    for i in 0..<arr.count {
+        if arr[i] == elemToReplace {
+            arr[i] = substitutionElem
+        }
+    }
+    return arr
+}
+arrayReplace(inputArray: [1, 2, 1], elemToReplace: 1, substitutionElem: 3)
+
+// lession 26:
+func evenDigitsOnly(n: Int) -> Bool {
+    var arr = String(n).characters.map{ Int("\($0)")! }
+    for i in 0..<arr.count {
+        if arr[i] % 2 == 1 {
+            return false
+        }
+    }
+    return true
+    
+}
+evenDigitsOnly(n: 248622)
+
+// lession 27:
+func variableName(name: String) -> Bool {
+    var arr = Array(name.lowercased().utf8)
+    
+    if (arr[0] < 97 || arr[0] > 122) && arr[0] != 95 {
+        return false
+    }
+    
+    for i in 1..<arr.count {
+        if !(arr[i] == 95 || (arr[i] >= 97 && arr[i] <= 122) || (arr[i] >= 48 && arr[i] <= 57)) {
+            return false
+        }
+    }
+    
+    return true
+}
+variableName(name: "ssss")
+
+// lession 28:
+func alphabeticShift(inputString: String) -> String {
+    let a = inputString.utf8.map{ ($0 - 96) % 26 + 1 + 96 }
+    return String(bytes: a, encoding: String.Encoding.utf8)!
+}
+
+// lession 29:
+func chessBoardCellColor(cell1: String, cell2: String) -> Bool {
+    var c1 = Array(cell1.utf8).first! - 64, r1 = Array(cell1.utf8).last! - 48
+    var c2 = Array(cell2.utf8).first! - 64, r2 = Array(cell2.utf8).last! - 48
+    
+    print(c1)
+    print(c2)
+    print(r1)
+    print(r2)
+    
+    return (c1+r1) % 2 == (c2+r2) % 2
+}
+chessBoardCellColor(cell1: "a1", cell2: "c3")
+
+// lession 30:
+func circleOfNumbers(n: Int, firstNumber: Int) -> Int {
+    var middle = Int(n / 2)
+    if firstNumber < middle {
+        return middle + firstNumber
+    } else {
+        return abs(middle - firstNumber)
+    }
+}
+circleOfNumbers(n: 10, firstNumber: 7)
+
+// lession 31:
+func depositProfit(deposit: Int, rate: Int, threshold: Int) -> Int {
+    var year = 0;
+    var money = deposit;
+    
+    while (money < threshold) {
+        money += money * rate / 100;
+        year += 1;
+    }
+    return year
+}
+depositProfit(deposit: 100, rate: 20, threshold: 170)
