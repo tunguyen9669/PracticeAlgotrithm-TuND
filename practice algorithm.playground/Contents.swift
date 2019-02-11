@@ -85,6 +85,9 @@ func almostIncreasingSequence(sequence: [Int]) -> Bool {
             index += [i, i+1]
         }
     }
+    if index.count > 2 {
+        return false
+    }
     for i in 0..<index.count {
         var arr = sequence
         arr.remove(at: index[i])
@@ -92,7 +95,6 @@ func almostIncreasingSequence(sequence: [Int]) -> Bool {
             return true
         }
     }
-    
     return false
 }
 
@@ -114,9 +116,7 @@ func matrixElementsSum(matrix: [[Int]]) -> Int {
     for i in 0..<a.count - 1 {
         for j in 0..<a[i].count {
             if a[i][j] < 1 {
-                for k in (i+1)..<a.count {
-                    a[k][j] = 0
-                }
+                a[i+1][j] = 0
             }
         }
     }
@@ -136,16 +136,13 @@ matrixElementsSum(matrix: [[0, 1, 1, 2],
 // lession 9:
 func allLongestStrings(inputArray: [String]) -> [String] {
     var result: [String] = []
-    var longest = 0
+    result.append(inputArray[0])
     
     for i in 0..<inputArray.count {
-        if inputArray[i].count > longest {
-            longest = inputArray[i].count
-        }
-        
-    }
-    for i in 0..<inputArray.count {
-        if inputArray[i].count == longest {
+        if result[0].count < inputArray[i].count {
+            result.removeAll()
+            result.append(inputArray[i])
+        } else if result[0].count == inputArray[i].count {
             result.append(inputArray[i])
         }
     }
@@ -202,7 +199,6 @@ func sortByHeight(a: [Int]) -> [Int] {
     var j = 0
     
     while j < a.count && b[j] < 0 {
-        
         j += 1
     }
     
